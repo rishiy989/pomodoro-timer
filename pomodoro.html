@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pomodoro 50-10</title>
+<style>
+  body {
+    background: transparent;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+  }
+  #label {
+    font-size: 64px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  #timer {
+    font-size: 140px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div id="label">Study</div>
+  <div id="timer">50:00</div>
+
+<script>
+let studyTime = 50 * 60;
+let breakTime = 10 * 60;
+let timeLeft = studyTime;
+let onBreak = false;
+
+function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById("timer").textContent =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+        onBreak = !onBreak;
+        document.getElementById("label").textContent = onBreak ? "Break" : "Study";
+        timeLeft = onBreak ? breakTime : studyTime;
+    }
+}
+
+setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
